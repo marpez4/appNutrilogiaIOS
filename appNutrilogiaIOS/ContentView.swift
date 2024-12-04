@@ -28,7 +28,7 @@ struct ContentView: View {
                         Label("Recetas", systemImage: "book.fill")
                     }
             }
-            .navigationTitle("Nutriología")
+            .navigationTitle("GoodHealth")
         }
     }
 }
