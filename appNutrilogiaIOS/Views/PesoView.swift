@@ -19,21 +19,32 @@ struct PesoView: View {
                     .font(.headline)
                     .foregroundStyle(.gray)
                 
-                List {
-                    ForEach(viewModel.pesosRegistrados) { peso in
-                        HStack {
-                            Text("\(peso.valor, specifier: "%.1f") kg")
-                                .font(.subheadline)
-                            Spacer()
-                            Text("\(peso.fecha, formatter: pesoFormatter)")
-                                .font(.footnote)
-                                .foregroundColor(.gray)
-                            Spacer()
-                            Text(peso.nota ?? "")
-                                .font(.subheadline)
+                if viewModel.pesosRegistrados.isEmpty{
+                    Text("No hay registros aún.")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .multilineTextAlignment(.center)
+                    
+                }else{
+                    List {
+                        ForEach(viewModel.pesosRegistrados) { peso in
+                            HStack {
+                                Text("\(peso.valor, specifier: "%.1f") kg")
+                                    .font(.subheadline)
+                                Spacer()
+                                Text("\(peso.fecha, formatter: pesoFormatter)")
+                                    .font(.footnote)
+                                    .foregroundColor(.gray)
+                                Spacer()
+                                Text(peso.nota ?? "")
+                                    .font(.subheadline)
+                            }
                         }
+                        .onDelete(perform: eliminarPeso)
                     }
-                    .onDelete(perform: eliminarPeso)
+                    .scrollContentBackground(.hidden)
+                    .background(Color.orange.opacity(0.1))
                 }
             }
             .padding()
