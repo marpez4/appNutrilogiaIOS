@@ -20,6 +20,8 @@ struct DashboardView: View{
         "image5"
     ]
     
+    @State private var selectedTab = 0
+    
     var body: some View{
         ScrollView{
             VStack(spacing: 20){
@@ -28,14 +30,15 @@ struct DashboardView: View{
                     .foregroundStyle(.gray)
                     .padding(.top)
                 VStack{
-                    TabView{
-                        ForEach(imagenes, id: \.self){imagen in
-                            Image(imagen)
+                    TabView(selection: $selectedTab){
+                        ForEach(imagenes.indices, id: \.self){index in
+                            Image(imagenes[index])
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 200)
                                 .cornerRadius(10)
                                 .shadow(radius: 5)
+                                .tag(index)
                         }
                     }
                     .tabViewStyle(PageTabViewStyle())
@@ -97,10 +100,19 @@ struct DashboardView: View{
             }
             
         }
+        .onAppear{
+            startAutoTabChange()
+        }
+    }
+    // Funcion para cambiar las imagenes en TabView
+    private func startAutoTabChange(){
+        Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true){_ in
+            selectedTab = (selectedTab + 1) % imagenes.count
+        }
     }
     
 }
-
+	
 // Botón de Atajo Reutilizable
 struct ShortcutButton: View {
     var title: String
@@ -121,6 +133,8 @@ struct ShortcutButton: View {
         .cornerRadius(10)
     }
 }
+
+
 
 #Preview {
     DashboardView(pesoActual: .constant(0.0), pesosRegistrados: .constant([Peso(valor: 0.0, fecha: Date(), nota: "")]))

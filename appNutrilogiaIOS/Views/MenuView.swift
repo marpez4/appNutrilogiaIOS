@@ -17,4 +17,4 @@ struct MenuView: View{
         }
         .padding()
     }
-}
+}	
