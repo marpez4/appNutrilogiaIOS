@@ -55,8 +55,8 @@ struct DashboardView: View{
                         Spacer()
                         ProgressView(value: max(0, pesoActual - pesoMeta), total: pesoMeta)
                         
-                            .progressViewStyle(LinearProgressViewStyle(tint: .black))
-                            .background(Color.green)
+                            .progressViewStyle(LinearProgressViewStyle(tint: .green))
+                            .background(Color.black)
                             .frame(width: 150)
                     }
                     .padding()

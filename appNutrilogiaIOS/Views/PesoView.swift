@@ -1,9 +1,3 @@
-//
-//  PesoView.swift
-//  appNutrilogiaIOS
-//
-//  Created by Alfonso Martinez on 04/12/24.
-//
 import SwiftUI
 
 struct PesoView: View {
@@ -19,15 +13,15 @@ struct PesoView: View {
     @State private var nota: String = ""
 
     var body: some View {
-        NavigationView{
-            VStack(alignment: .leading, spacing: 10){
+        NavigationView {
+            VStack(alignment: .leading, spacing: 10) {
                 Text("Registro de pesos")
                     .font(.headline)
                     .foregroundStyle(.gray)
                 
-                List{
+                List {
                     ForEach(viewModel.pesosRegistrados) { peso in
-                        HStack{
+                        HStack {
                             Text("\(peso.valor, specifier: "%.1f") kg")
                                 .font(.subheadline)
                             Spacer()
@@ -43,66 +37,67 @@ struct PesoView: View {
                 }
             }
             .padding()
-            Spacer()
-        }
-        .navigationTitle("Registro de pesos")
-        .toolbar{
-            ToolbarItem(placement: .navigationBarTrailing){
-                Button(action: {
-                    isSheetPresented.toggle()
-                }) {
-                    Label("Registrar peso", systemImage: "plus")
-                        .font(.headline)
+            .navigationTitle("")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        isSheetPresented.toggle()
+                    }) {
+                        Label("Registrar peso", systemImage: "plus")
+                            .font(.headline)
+                    }
                 }
             }
-        }
-        .sheet(isPresented: $isSheetPresented){
-            NavigationView{
-                VStack {
-                    Text("Registrar nuevo peso")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                    
-                    TextField("Introduce tu peso actual", text: $nuevoPeso)
-                        .keyboardType(.decimalPad)
-                        .padding()
-                        .background(Color.orange.opacity(0.1))
-                        .cornerRadius(10)
-                    
-                    TextField("Introduce una nota opcional", text: $nota)
-                        .padding()
-                        .background(Color.orange.opacity(0.1))
-                        .cornerRadius(10)
-                    Spacer()
-                    .padding(.top, 10)
-                }
-                .padding()
-                .toolbar{
-                    ToolbarItem(placement: .navigationBarLeading){
-                        Button("Cancelar"){
-                            isSheetPresented = false
+            .sheet(isPresented: $isSheetPresented) {
+                // Dentro del sheet, mantenemos el NavigationView
+                NavigationView {
+                    VStack {
+                        Text("Registrar nuevo peso")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                        
+                        TextField("Introduce tu peso actual", text: $nuevoPeso)
+                            .keyboardType(.decimalPad)
+                            .padding()
+                            .background(Color.orange.opacity(0.1))
+                            .cornerRadius(10)
+                        
+                        TextField("Introduce una nota opcional", text: $nota)
+                            .padding()
+                            .background(Color.orange.opacity(0.1))
+                            .cornerRadius(10)
+                        Spacer()
+                            .padding(.top, 10)
+                    }
+                    .padding()
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button("Cancelar") {
+                                isSheetPresented = false
+                            }
+                        }
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button("Guardar") {
+                                guardarPeso()
+                            }
                         }
                     }
-                    ToolbarItem(placement: .navigationBarTrailing){
-                        Button("Guardar"){
-                            guardarPeso()
-                        }
-                    }                }
-                .alert(isPresented: $showAlert){
-                    Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("Ok")))
+                    .alert(isPresented: $showAlert) {
+                        Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("Ok")))
+                    }
                 }
             }
         }
     }
-    
-    private func guardarPeso(){
-        viewModel.registrarPeso(valor: nuevoPeso, nota: nota){error in
+
+    private func guardarPeso() {
+        viewModel.registrarPeso(valor: nuevoPeso, nota: nota) { error in
             alertMessage = error
             showAlert = true
         }
-        if !showAlert{
-            // Actualizamos el peso actual en el dashboard despues de guardar
-            if let ultimoPeso = viewModel.pesosRegistrados.last{
+        if !showAlert {
+            // Actualizamos el peso actual en el dashboard después de guardar
+            if let ultimoPeso = viewModel.pesosRegistrados.last {
                 pesoActual = ultimoPeso.valor
             }
             nuevoPeso = ""
@@ -110,13 +105,11 @@ struct PesoView: View {
             isSheetPresented = false
         }
     }
-    
-    private func eliminarPeso(at offsets: IndexSet){
+
+    private func eliminarPeso(at offsets: IndexSet) {
         viewModel.eliminarPeso(at: offsets)
-        
     }
 }
-
 
 // Formateador de fecha
 let pesoFormatter: DateFormatter = {
