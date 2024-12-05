@@ -51,6 +51,12 @@ struct DashboardView: View{
                         .font(.headline)
                     
                     HStack{
+                        Image("image9")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 50, height: 50)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                        
                         VStack(alignment: .leading){
                             Text("Peso actual: \(pesoActual, specifier: "%.1f") kg")
                             Text("Peso objetivo: \(pesoMeta, specifier: "%.1f") kg")
@@ -73,9 +79,9 @@ struct DashboardView: View{
                         .font(.headline)
                     HStack(spacing: 20) {
                         
-                            ShortcutButton(title: "Peso", systemImage: "scalemass")
-                                           ShortcutButton(title: "Menús", systemImage: "list.bullet")
-                                           ShortcutButton(title: "Recetas", systemImage: "book.fill")
+                        ShortcutButton(title: "Peso", imagename: "image8")
+                                           ShortcutButton(title: "Menús", imagename: "image7")
+                                           ShortcutButton(title: "Recetas", imagename: "image6")
                                        }
                         
                 }
@@ -85,6 +91,12 @@ struct DashboardView: View{
                     Text("Ultima receta consultada")
                         .font(.headline)
                     HStack{
+                        Image("image10")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 25, height: 25)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                        
                         Text(ultimaReceta)
                             .font(.subheadline)
                         Spacer()
@@ -116,14 +128,15 @@ struct DashboardView: View{
 // Botón de Atajo Reutilizable
 struct ShortcutButton: View {
     var title: String
-    var systemImage: String
+    var imagename: String
 
     var body: some View {
         VStack {
-            Image(systemName: systemImage)
+            Image(imagename)
                 .resizable()
-                .frame(width: 42, height: 35)
-                .foregroundColor(.blue)
+                .frame(width: 50, height: 50)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                
             Text(title)
                 .font(.subheadline)
         }
