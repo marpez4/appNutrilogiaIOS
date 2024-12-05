@@ -61,6 +61,14 @@ struct PesoView: View {
                             .padding()
                             .background(Color.orange.opacity(0.1))
                             .cornerRadius(10)
+                            .onChange(of: nuevoPeso){newValue in
+                                if let number = Double(newValue), newValue.count > 3, number > 999{
+                                    alertMessage = "El número no puede ser mayor a tres dígitos"
+                                    showAlert = true
+                                    nuevoPeso = ""
+                                }
+                                
+                            }
                         
                         TextField("Introduce una nota opcional", text: $nota)
                             .padding()
