@@ -8,8 +8,10 @@ import SwiftUI
 
 struct PesoView: View {
     
+    @Binding var pesoActual: Double
+    @Binding var pesosRegistrados: [Peso]
+    
     @StateObject private var viewModel = PesoViewModel()
-    @State private var pesosRegistrados: [Peso] = []
     @State private var isSheetPresented: Bool = false
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
@@ -99,6 +101,10 @@ struct PesoView: View {
             showAlert = true
         }
         if !showAlert{
+            // Actualizamos el peso actual en el dashboard despues de guardar
+            if let ultimoPeso = viewModel.pesosRegistrados.last{
+                pesoActual = ultimoPeso.valor
+            }
             nuevoPeso = ""
             nota = ""
             isSheetPresented = false
@@ -121,5 +127,5 @@ let pesoFormatter: DateFormatter = {
 }()
 
 #Preview {
-    PesoView()
+    PesoView(pesoActual: .constant(0.0), pesosRegistrados: .constant([Peso(valor: 0.0, fecha: Date(), nota: "")]))
 }

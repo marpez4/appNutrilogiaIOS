@@ -7,7 +7,8 @@
 import SwiftUI
 
 struct DashboardView: View{
-    @State private var pesoActual: Double = 90.0
+    @Binding var pesoActual: Double
+    @Binding var pesosRegistrados: [Peso]
     @State private var pesoMeta: Double = 70.0
     @State private var ultimaReceta: String = "Ensalada de Quinoa"
     
@@ -121,5 +122,5 @@ struct ShortcutButton: View {
 }
 
 #Preview {
-    DashboardView()
+    DashboardView(pesoActual: .constant(0.0), pesosRegistrados: .constant([Peso(valor: 0.0, fecha: Date(), nota: "")]))
 }

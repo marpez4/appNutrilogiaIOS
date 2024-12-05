@@ -8,14 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var pesoActual: Double = 0.0
+    @State private var pesosRegistrados: [Peso] = []
+    
     var body: some View {
         NavigationView {
             TabView {
-                DashboardView()
+                DashboardView(pesoActual: $pesoActual, pesosRegistrados: $pesosRegistrados)
                     .tabItem {
                         Label("Inicio", systemImage: "house.fill")
                     }
-                PesoView()
+                PesoView(pesoActual: $pesoActual, pesosRegistrados: $pesosRegistrados)
                     .tabItem {
                         Label("Pesos", systemImage: "scalemass")
                     }
