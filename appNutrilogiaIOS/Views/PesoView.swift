@@ -62,8 +62,8 @@ struct PesoView: View {
                             .background(Color.orange.opacity(0.1))
                             .cornerRadius(10)
                             .onChange(of: nuevoPeso){newValue in
-                                if let number = Double(newValue), newValue.count > 3, number > 999{
-                                    alertMessage = "El número no puede ser mayor a tres dígitos"
+                                if let number = Double(newValue), newValue.count > 3, number > 350{
+                                    alertMessage = "El número no puede ser mayor a tres dígitos ni mayor a 350 kg"
                                     showAlert = true
                                     nuevoPeso = ""
                                 }
