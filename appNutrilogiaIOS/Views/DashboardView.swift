@@ -11,7 +11,7 @@ struct DashboardView: View{
     @Binding var pesosRegistrados: [Peso]
     @State private var pesoMeta: Double = 70.0
     @State private var ultimaReceta: String = "Ensalada de Quinoa"
-    @State private var isModalPresented: Bool = true
+    @State private var isModalPresented: Bool = false
     
     let imagenes: [String] = [
         "image1",
