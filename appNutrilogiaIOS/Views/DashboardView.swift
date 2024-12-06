@@ -11,6 +11,7 @@ struct DashboardView: View{
     @Binding var pesosRegistrados: [Peso]
     @State private var pesoMeta: Double = 70.0
     @State private var ultimaReceta: String = "Ensalada de Quinoa"
+    @State private var isModalPresented: Bool = true
     
     let imagenes: [String] = [
         "image1",
@@ -80,8 +81,8 @@ struct DashboardView: View{
                     HStack(spacing: 20) {
                         
                         ShortcutButton(title: "Peso", imagename: "image8")
-                                           ShortcutButton(title: "Menús", imagename: "image7")
-                                           ShortcutButton(title: "Recetas", imagename: "image6")
+                        ShortcutButton(title: "Menús", imagename: "image7")
+                        ShortcutButton(title: "Recetas", imagename: "image6")
                                        }
                         
                 }
@@ -106,6 +107,9 @@ struct DashboardView: View{
                     .padding()
                     .background(Color.orange.opacity(0.1))
                     .cornerRadius(10)
+                    .onTapGesture {
+                        isModalPresented = true
+                    }
                 }
                 .padding(.horizontal)
                 Spacer()
@@ -115,7 +119,54 @@ struct DashboardView: View{
         .onAppear{
             startAutoTabChange()
         }
+        .sheet(isPresented: $isModalPresented){
+            NavigationView{
+                VStack(alignment: .center, spacing: 20){
+                    Image("bannerApp2")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 140)
+                        .clipped()
+                        .overlay(
+                            Text("Recetas")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .foregroundColor(.orange)
+                                .padding(.top)
+                                .shadow(radius: 10),
+                            alignment: .center
+                            
+                        )
+                        .frame(maxWidth: .infinity)
+                    
+                    Text("Nombre de la receta: \(ultimaReceta)")
+                                            .font(.body)
+                                        
+                                        Text("Ingredientes:")
+                                            .font(.subheadline)
+                                            .fontWeight(.bold)
+                                        
+                                        Text("• 1 taza de quinoa\n• 2 tazas de agua\n• 1 pepino, picado\n• 1 tomate, picado\n• Jugo de limón\n• Sal y pimienta al gusto")
+                                            .font(.body)
+                                        
+                                        Text("Instrucciones:")
+                                            .font(.subheadline)
+                                            .fontWeight(.bold)
+                                        
+                                        Text("1. Cocina la quinoa en agua hirviendo hasta que esté lista.\n2. Mezcla la quinoa con los vegetales picados.\n3. Agrega jugo de limón, sal y pimienta al gusto.\n4. Sirve y disfruta.")
+                                            .font(.body)
+                                        
+                                        Spacer()
+                    Button("Cerrar"){
+                        isModalPresented = false
+                        
+                    }
+                }
+            }
+        }
     }
+       
+    
     // Funcion para cambiar las imagenes en TabView
     private func startAutoTabChange(){
         Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true){_ in
