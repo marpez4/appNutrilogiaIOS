@@ -38,19 +38,19 @@ struct MenuView: View{
                            VStack(alignment: .leading, spacing: 10) {
                                ForEach(menu.content.split(separator: "\n"), id: \.self) { line in
                                    if line.contains("Desayuno") {
-                                       // Mostrar imagen de desayuno centrada y con tamaño fijo
                                        AsyncImage(url: URL(string: menu.images["Desayuno"] ?? "")) { phase in
                                            switch phase {
                                            case .empty:
-                                               ProgressView() // Indicador de carga mientras la imagen se descarga
+                                               ProgressView()
                                                    .progressViewStyle(CircularProgressViewStyle())
                                            case .success(let image):
                                                image
                                                    .resizable()
                                                    .scaledToFit()
-                                                   .frame(width: 200, height: 200) // Tamaño consistente
+                                                   .frame(width: 200, height: 200)
                                                    .padding(.top, 5)
-                                                   .frame(maxWidth: .infinity) 
+                                                   .frame(maxWidth: .infinity)
+                                               
                                            case .failure:
                                                Image(systemName: "exclamationmark.triangle.fill")
                                                    .foregroundColor(.red)
@@ -59,8 +59,7 @@ struct MenuView: View{
                                            @unknown default:
                                                EmptyView()
                                            }
-                                       }
-                                       
+                                       }                                       
                                        // Texto del desayuno
                                        Text(line)
                                            .font(.subheadline)
@@ -87,7 +86,6 @@ struct MenuView: View{
                                                EmptyView()
                                            }
                                        }
-                                       
                                        // Texto del almuerzo
                                        Text(line)
                                            .font(.subheadline)
@@ -114,7 +112,6 @@ struct MenuView: View{
                                                EmptyView()
                                            }
                                        }
-                                       
                                        // Texto de la cena
                                        Text(line)
                                            .font(.subheadline)
@@ -141,14 +138,12 @@ struct MenuView: View{
                                                EmptyView()
                                            }
                                        }
-                                       
-                                       // Texto de la snack
+                                       // Texto del snack
                                        Text(line)
                                            .font(.subheadline)
                                            .foregroundColor(.black)
                                            .padding(.top, 5)
                                    }else if line.contains("Actividad") {
-                                                                              
                                        // Texto de la Activida
                                        Text(line)
                                            .font(.subheadline)
@@ -162,10 +157,12 @@ struct MenuView: View{
                            Text(menu.title)
                                .font(.headline)
                                .padding(.vertical, 5)
-                               .foregroundColor(.blue)
+                               .foregroundColor(.white)
+                               .shadow(radius: 8)
+                               .fontWeight(.bold)
                        }
                        .padding(.bottom, 10)
-                       .background()
+                       .listRowBackground(Color.mint.opacity(0.3))
                    }
                    .listStyle(PlainListStyle())
                }
