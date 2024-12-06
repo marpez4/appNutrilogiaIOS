@@ -13,11 +13,22 @@ struct MenuView: View{
     
     var body: some View {
            NavigationView {
-               VStack(alignment: .leading, spacing: 10) {
-                   Text("Registro de menús")
-                       .font(.headline)
-                       .foregroundStyle(.gray)
-                       .padding(.top)
+               VStack(alignment: .center, spacing: 10) {
+                   Image("bannerApp2")
+                       .resizable()
+                       .scaledToFill()
+                       .frame(height: 140)
+                       .clipped()
+                       .overlay(
+                           Text("Control de menús")
+                               .font(.title)
+                               .fontWeight(.bold)
+                               .foregroundColor(.orange)
+                               .shadow(radius: 10),
+                           alignment: .center
+                           
+                       )
+                       .frame(maxWidth: .infinity)
 
                    List(viewModel.menus, id: \.title) { menu in
                        DisclosureGroup(isExpanded: Binding(

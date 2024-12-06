@@ -27,10 +27,6 @@ struct ContentView: View {
                     .tabItem {
                         Label("Menús", systemImage: "list.bullet")
                     }
-                RecetaView()
-                    .tabItem {
-                        Label("Recetas", systemImage: "book.fill")
-                    }
             }
             .navigationTitle("GoodHealth")
         }

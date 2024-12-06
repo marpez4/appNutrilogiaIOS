@@ -14,10 +14,23 @@ struct PesoView: View {
 
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading, spacing: 10) {
-                Text("Registro de pesos")
-                    .font(.headline)
-                    .foregroundStyle(.gray)
+            VStack(alignment: .center, spacing: 10) {
+                
+                Image("bannerApp2")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(height: 140)
+                    .clipped()
+                    .overlay(
+                        Text("Control de pesos")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(.orange)
+                            .shadow(radius: 10),
+                        alignment: .center
+                        
+                    )
+                    .frame(maxWidth: .infinity)
                 
                 if viewModel.pesosRegistrados.isEmpty{
                     Text("No hay registros aún.")
